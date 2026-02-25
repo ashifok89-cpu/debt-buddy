@@ -4,8 +4,8 @@
   "description": "Track debts with friends — SAR & INR",
   "start_url": "/debt-buddy/",
   "display": "standalone",
-  "background_color": "#070A10",
-  "theme_color": "#070A10",
+  "background_color": "#F6F7FB",
+  "theme_color": "#F6F7FB",
   "orientation": "portrait",
   "icons": [
     {
