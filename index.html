@@ -34,35 +34,38 @@ input:focus,select:focus{border-color:var(--accent)!important;outline:none;box-s
 
 /* ── Layout ── */
 .header{padding:52px 22px 10px}
-.header h1{font-size:20px;font-weight:800;letter-spacing:-.4px;display:flex;align-items:center;gap:10px;color:var(--text)}
-.header h1 .logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#3366FF,#6B8AFF);display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 2px 8px rgba(51,102,255,.25)}
+.header h1{font-size:22px;font-weight:800;letter-spacing:-.4px;display:flex;align-items:center;gap:10px;color:var(--text)}
+.header h1 .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#3366FF,#6B8AFF);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(51,102,255,.25)}
 .content{padding:0 18px 100px}
 
 /* ── Components ── */
 .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
 .field{margin-bottom:14px}
-.field label{display:block;font-size:10px;font-weight:700;color:var(--text2);margin-bottom:6px;letter-spacing:1.2px;text-transform:uppercase}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase}
 .field input,.field select{
-  width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);
-  font-size:14px;color:var(--text);background:var(--bg);font-family:var(--font);transition:all .2s;
+  width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--border);
+  font-size:15px;color:var(--text);background:var(--bg);font-family:var(--font);transition:all .2s;
 }
 .btn{
-  width:100%;padding:14px;border-radius:14px;border:none;font-size:14px;font-weight:700;
+  width:100%;padding:15px;border-radius:14px;border:none;font-size:15px;font-weight:700;
   cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;
-  box-shadow:0 2px 6px rgba(0,0,0,.06);
+  box-shadow:0 2px 6px rgba(0,0,0,.06);position:relative;
 }
 .btn:active{transform:scale(.98)}
 .btn:disabled{background:var(--border)!important;color:var(--text3)!important;cursor:default;transform:none;box-shadow:none}
+.btn.loading{pointer-events:none;opacity:.75}
+.btn.loading .btn-text{visibility:hidden}
+.btn.loading::after{content:'';position:absolute;width:22px;height:22px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .toggle{display:flex;background:var(--surface);border-radius:14px;padding:3px;margin-bottom:20px;border:1px solid var(--border);gap:3px}
-.toggle button{flex:1;padding:11px;border-radius:11px;border:none;cursor:pointer;font-size:13px;font-weight:700;font-family:var(--font);background:transparent;color:var(--text3);transition:all .2s}
-.toggle button[style*="background:var(--red)"],.toggle button[style*="background:var(--green)"],.toggle button[style*="background:var(--accent)"]{box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.toggle button{flex:1;padding:12px;border-radius:11px;border:none;cursor:pointer;font-size:14px;font-weight:700;font-family:var(--font);background:transparent;color:var(--text3);transition:all .2s}
 .chips{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;padding-bottom:4px}
 .chip{
-  padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;
-  color:var(--text2);font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .15s;
+  padding:8px 15px;border-radius:20px;border:1.5px solid var(--border);background:transparent;
+  color:var(--text2);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .15s;
 }
 .empty{text-align:center;padding:36px 20px;border-radius:16px;border:1.5px dashed var(--border);color:var(--text3);background:var(--card)}
-.badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-block}
+.badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-block}
 .modal-bg{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.35);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center}
 .modal{width:100%;max-width:480px;background:var(--bg2);border-radius:22px 22px 0 0;padding:8px 20px 32px;max-height:85vh;overflow-y:auto;animation:slideUp .25s ease-out;box-shadow:0 -4px 24px rgba(0,0,0,.1)}
 @keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
@@ -75,38 +78,45 @@ input:focus,select:focus{border-color:var(--accent)!important;outline:none;box-s
   border-top:1px solid var(--border);padding:6px 0 22px;z-index:100;
 }
 .tab-btn{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;padding:6px 6px 0;min-width:50px;font-family:var(--font)}
-.tab-icon{font-size:18px;line-height:1}
-.tab-label{font-size:9px;font-weight:700;letter-spacing:.3px}
+.tab-icon{font-size:20px;line-height:1}
+.tab-label{font-size:10px;font-weight:700;letter-spacing:.3px}
 .tab-dot{width:4px;height:4px;border-radius:2px;background:var(--accent);margin-top:-1px}
 
 /* ── Transaction row ── */
 .tx-row{
-  display:grid;grid-template-columns:1fr 66px 44px 62px 66px;gap:3px;padding:10px 12px;
+  display:grid;grid-template-columns:1fr 66px 44px 62px 66px;gap:3px;padding:11px 12px;
   border-radius:12px;background:var(--card);border:1px solid var(--border);margin-bottom:6px;
   align-items:center;cursor:pointer;transition:all .15s;box-shadow:var(--shadow);
 }
 .tx-row:active{background:var(--surface)}
-.tx-row.closed{opacity:.45;cursor:default}
-.tx-header{display:grid;grid-template-columns:1fr 66px 44px 62px 66px;gap:3px;padding:6px 12px;font-size:9px;font-weight:700;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:6px}
+.tx-row.closed{opacity:.45}
+.tx-header{display:grid;grid-template-columns:1fr 66px 44px 62px 66px;gap:3px;padding:6px 12px;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:6px}
 .person-row{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--border);margin-bottom:8px;transition:all .15s;box-shadow:var(--shadow)}
 .person-row:active{background:var(--surface)}
-.avatar{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
-.small-btn{padding:7px 11px;border-radius:8px;border:none;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s}
+.avatar{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
+.small-btn{padding:8px 13px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s}
 .small-btn:active{transform:scale(.95)}
 .stat-row{display:flex;gap:8px}
-.stat-card{flex:1;padding:13px 14px;border-radius:14px}
+.stat-card{flex:1;padding:14px;border-radius:14px}
 .divider{height:1px;background:var(--border);margin:8px 0 20px}
 .download-btn{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--border);cursor:pointer;margin-bottom:8px;font-family:var(--font);text-align:left;transition:all .15s;box-shadow:var(--shadow)}
 .download-btn:active{background:var(--surface)}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.success-toast{padding:12px;border-radius:12px;background:var(--greenDim);border:1px solid var(--greenBorder);text-align:center;color:var(--green);font-size:13px;font-weight:600;margin-top:12px}
+.success-toast{padding:13px;border-radius:12px;background:var(--greenDim);border:1px solid var(--greenBorder);text-align:center;color:var(--green);font-size:14px;font-weight:600;margin-top:12px}
+/* ── Modal action buttons ── */
+.modal-actions{display:flex;gap:8px;margin-bottom:16px}
+.modal-action{flex:1;padding:10px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:700;text-align:center;transition:all .15s}
+.modal-action:active{transform:scale(.97)}
+.modal-action.active-settle{border-color:var(--greenBorder);background:var(--greenDim);color:var(--green)}
+.modal-action.active-edit{border-color:rgba(51,102,255,.25);background:var(--accentDim);color:var(--accent)}
+.modal-action.active-delete{border-color:var(--redBorder);background:var(--redDim);color:var(--red)}
 </style>
 </head>
 <body>
 
 <div id="loading" style="display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:12px">
   <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#3366FF,#6B8AFF);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(51,102,255,.3)">💰</div>
-  <div id="loading-text" style="color:var(--text2);font-size:13px;font-weight:600">Loading...</div>
+  <div id="loading-text" style="color:var(--text2);font-size:14px;font-weight:600">Loading...</div>
 </div>
 <div id="app" style="display:none"></div>
 
@@ -114,7 +124,7 @@ input:focus,select:focus{border-color:var(--accent)!important;outline:none;box-s
 // ═══════════════════════════════════════════
 // CONFIG — Set your Apps Script URL here
 // ═══════════════════════════════════════════
-var API_URL = 'https://script.google.com/macros/s/AKfycbxVWf41nY2zF94qScz9BEpSyAszO00oaG7Hr9lQ_3HbUjD_I4XRNlJ1htnNfFPJHvI7/exec';  // ← Paste your /exec URL here
+var API_URL = '';  // ← Paste your /exec URL here
 
 // ═══════════════════════════════════════════
 // STATE
@@ -122,6 +132,8 @@ var API_URL = 'https://script.google.com/macros/s/AKfycbxVWf41nY2zF94qScz9BEpSyA
 var S = {people:[],transactions:[],tab:'balance',subTab:'borrow'};
 var selectedCur='SAR',settleTarget=null,txFilter='all',txPerson='all';
 var settlePerson='',settleAmount='',settleCurrency='SAR';
+var isSubmitting=false;
+var modalMode='settle'; // settle | edit | delete
 
 // ═══════════════════════════════════════════
 // API
@@ -148,6 +160,12 @@ function ini(n){var p=String(n).split(' '),r='';for(var i=0;i<p.length&&i<2;i++)
 function rgba(hex,a){return'rgba('+parseInt(hex.slice(1,3),16)+','+parseInt(hex.slice(3,5),16)+','+parseInt(hex.slice(5,7),16)+','+a+')'}
 function calc(cur){var owed=0,owe=0;for(var i=0;i<S.transactions.length;i++){var t=S.transactions[i],due=t.amount-(t.settled||0);if(due<=0||t.currency!==cur)continue;if(t.type==='lend')owed+=due;else owe+=due}return{owed:owed,owe:owe,net:owed-owe}}
 function fp(id){for(var i=0;i<S.people.length;i++)if(S.people[i].id===id)return S.people[i];return null}
+
+function setLoading(btnId,loading){
+  var b=document.getElementById(btnId);if(!b)return;
+  if(loading){b.classList.add('loading');b.disabled=true}
+  else{b.classList.remove('loading');b.disabled=false}
+}
 
 // ═══════════════════════════════════════════
 // RENDER
@@ -177,24 +195,24 @@ function renderBalance(){
     if(ci>0)h+='<div class="divider"></div>';
     var nc=s.net>=0?'var(--green)':'var(--red)',ns=s.net>=0?'+':'-';
     h+='<div style="margin-bottom:16px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">';
-    h+='<div style="width:38px;height:38px;border-radius:11px;background:'+c.dim+';border:1px solid '+c.bdr+';display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:'+c.color+'">'+c.sym+'</div>';
-    h+='<div><div style="font-size:13px;font-weight:700">'+c.c+'</div><div style="font-size:10px;color:var(--text3)">'+c.label+'</div></div>';
-    h+='<div style="margin-left:auto;text-align:right"><div style="font-size:10px;color:var(--text3)">Net Balance</div>';
-    h+='<div style="font-size:17px;font-weight:800;color:'+nc+'">'+ns+fmt(s.net,c.c)+'</div></div></div>';
+    h+='<div style="width:40px;height:40px;border-radius:11px;background:'+c.dim+';border:1px solid '+c.bdr+';display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:'+c.color+'">'+c.sym+'</div>';
+    h+='<div><div style="font-size:15px;font-weight:700">'+c.c+'</div><div style="font-size:12px;color:var(--text3)">'+c.label+'</div></div>';
+    h+='<div style="margin-left:auto;text-align:right"><div style="font-size:11px;color:var(--text3)">Net Balance</div>';
+    h+='<div style="font-size:19px;font-weight:800;color:'+nc+'">'+ns+fmt(s.net,c.c)+'</div></div></div>';
     h+='<div class="stat-row">';
-    h+='<div class="stat-card" style="background:var(--greenDim);border:1px solid var(--greenBorder)"><div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:4px">↑ Owed to You</div><div style="font-size:17px;font-weight:800;color:var(--green)">'+fmt(s.owed,c.c)+'</div></div>';
-    h+='<div class="stat-card" style="background:var(--redDim);border:1px solid var(--redBorder)"><div style="font-size:10px;font-weight:700;color:var(--red);margin-bottom:4px">↓ You Owe</div><div style="font-size:17px;font-weight:800;color:var(--red)">'+fmt(s.owe,c.c)+'</div></div>';
+    h+='<div class="stat-card" style="background:var(--greenDim);border:1px solid var(--greenBorder)"><div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:4px">↑ Owed to You</div><div style="font-size:18px;font-weight:800;color:var(--green)">'+fmt(s.owed,c.c)+'</div></div>';
+    h+='<div class="stat-card" style="background:var(--redDim);border:1px solid var(--redBorder)"><div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px">↓ You Owe</div><div style="font-size:18px;font-weight:800;color:var(--red)">'+fmt(s.owe,c.c)+'</div></div>';
     h+='</div></div>';
   }
   // Recent
-  h+='<div style="margin-top:6px"><div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:10px;letter-spacing:1px">RECENT ACTIVITY</div>';
-  if(!S.transactions.length){h+='<div class="empty"><div style="font-size:28px;margin-bottom:6px">📊</div><div style="font-size:13px;font-weight:600">No transactions yet</div></div>'}
+  h+='<div style="margin-top:6px"><div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:10px;letter-spacing:1px">RECENT ACTIVITY</div>';
+  if(!S.transactions.length){h+='<div class="empty"><div style="font-size:28px;margin-bottom:6px">📊</div><div style="font-size:14px;font-weight:600">No transactions yet</div></div>'}
   else{var r=S.transactions.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)}).slice(0,5);
     for(var i=0;i<r.length;i++){var tx=r[i],p=fp(tx.personId),il=tx.type==='lend',ac=il?'var(--green)':'var(--red)';
-      h+='<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--card);margin-bottom:6px;border:1px solid var(--border);box-shadow:var(--shadow)">';
-      h+='<div style="width:32px;height:32px;border-radius:9px;background:'+(il?'var(--greenDim)':'var(--redDim)')+';display:flex;align-items:center;justify-content:center;font-size:13px;color:'+ac+';font-weight:700">'+(il?'↑':'↓')+'</div>';
-      h+='<div style="flex:1"><div style="font-size:12px;font-weight:600">'+(p?p.name:'?')+'</div><div style="font-size:10px;color:var(--text3)">'+(tx.note||(il?'Lent':'Borrowed'))+' · '+fmtD(tx.date)+'</div></div>';
-      h+='<div style="font-size:13px;font-weight:700;color:'+ac+'">'+(il?'+':'-')+fmt(tx.amount,tx.currency)+'</div></div>';
+      h+='<div style="display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:var(--card);margin-bottom:6px;border:1px solid var(--border);box-shadow:var(--shadow)">';
+      h+='<div style="width:34px;height:34px;border-radius:9px;background:'+(il?'var(--greenDim)':'var(--redDim)')+';display:flex;align-items:center;justify-content:center;font-size:14px;color:'+ac+';font-weight:700">'+(il?'↑':'↓')+'</div>';
+      h+='<div style="flex:1"><div style="font-size:14px;font-weight:600">'+(p?p.name:'?')+'</div><div style="font-size:12px;color:var(--text3)">'+(tx.note||(il?'Lent':'Borrowed'))+' · '+fmtD(tx.date)+'</div></div>';
+      h+='<div style="font-size:15px;font-weight:700;color:'+ac+'">'+(il?'+':'-')+fmt(tx.amount,tx.currency)+'</div></div>';
     }}
   h+='</div>';return h;
 }
@@ -211,7 +229,7 @@ function renderAdd(){
   h+='</div>';
   if(iS) return h+renderSettle();
   // Hint
-  h+='<div class="card" style="background:'+(iB?'var(--redDim)':'var(--greenDim)')+';border-color:'+(iB?'var(--redBorder)':'var(--greenBorder)')+';padding:10px 14px;font-size:12px;font-weight:500;color:'+(iB?'var(--red)':'var(--green)')+';box-shadow:none">'+
+  h+='<div class="card" style="background:'+(iB?'var(--redDim)':'var(--greenDim)')+';border-color:'+(iB?'var(--redBorder)':'var(--greenBorder)')+';padding:11px 14px;font-size:13px;font-weight:500;color:'+(iB?'var(--red)':'var(--green)')+';box-shadow:none">'+
     (iB?'💸 Recording money you borrowed (you will owe)':'🤝 Recording money you lent (they will owe you)')+'</div>';
   // Form
   h+='<div class="field"><label>Person</label><select id="f-person"><option value="">Select person...</option>';
@@ -220,35 +238,40 @@ function renderAdd(){
   h+='<div class="field"><label>Date</label><input type="date" id="f-date" value="'+today()+'"></div>';
   var ss=selectedCur==='SAR';
   h+='<div class="field"><label>Currency</label><div style="display:flex;gap:8px">';
-  h+='<button onclick="pickCur(\'SAR\')" style="flex:1;padding:11px;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(ss?'var(--sar)':'var(--border)')+';background:'+(ss?'var(--sarDim)':'var(--bg)')+';color:'+(ss?'var(--sar)':'var(--text3)')+'">﷼ SAR</button>';
-  h+='<button onclick="pickCur(\'INR\')" style="flex:1;padding:11px;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(!ss?'var(--inr)':'var(--border)')+';background:'+(!ss?'var(--inrDim)':'var(--bg)')+';color:'+(!ss?'var(--inr)':'var(--text3)')+'">₹ INR</button>';
+  h+='<button onclick="pickCur(\'SAR\')" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(ss?'var(--sar)':'var(--border)')+';background:'+(ss?'var(--sarDim)':'var(--bg)')+';color:'+(ss?'var(--sar)':'var(--text3)')+'">﷼ SAR</button>';
+  h+='<button onclick="pickCur(\'INR\')" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(!ss?'var(--inr)':'var(--border)')+';background:'+(!ss?'var(--inrDim)':'var(--bg)')+';color:'+(!ss?'var(--inr)':'var(--text3)')+'">₹ INR</button>';
   h+='</div></div>';
-  h+='<div class="field"><label>Amount</label><input type="number" id="f-amount" placeholder="0.00" style="font-size:20px;font-weight:700;text-align:center"></div>';
+  h+='<div class="field"><label>Amount</label><input type="number" id="f-amount" placeholder="0.00" style="font-size:22px;font-weight:700;text-align:center"></div>';
   h+='<div class="field"><label>Note (optional)</label><input type="text" id="f-note" placeholder="e.g. Lunch, Rent, Tickets..."></div>';
-  h+='<button class="btn" style="background:'+(iB?'var(--red)':'var(--green)')+';color:#fff" onclick="submitTx()">'+(iB?'↓ Add Borrow':'↑ Add Lend')+'</button>';
+  h+='<button class="btn" id="btn-add-tx" style="background:'+(iB?'var(--red)':'var(--green)')+';color:#fff" onclick="submitTx()"><span class="btn-text">'+(iB?'↓ Add Borrow':'↑ Add Lend')+'</span></button>';
   h+='<div id="add-msg"></div>';
-  if(!S.people.length) h+='<div style="margin-top:14px;padding:10px 14px;border-radius:12px;background:var(--sarDim);border:1px solid var(--sarBorder);text-align:center;color:var(--sar);font-size:12px;font-weight:500">Add people first in the People tab</div>';
+  if(!S.people.length) h+='<div style="margin-top:14px;padding:10px 14px;border-radius:12px;background:var(--sarDim);border:1px solid var(--sarBorder);text-align:center;color:var(--sar);font-size:13px;font-weight:500">Add people first in the People tab</div>';
   return h;
 }
 function pickCur(c){selectedCur=c;render()}
 function submitTx(){
+  if(isSubmitting)return;
   var pid=document.getElementById('f-person').value,date=document.getElementById('f-date').value,
     amt=parseFloat(document.getElementById('f-amount').value),note=document.getElementById('f-note').value;
   if(!pid||!date||!amt||amt<=0){alert('Please fill all required fields');return}
+  isSubmitting=true;
+  setLoading('btn-add-tx',true);
   api('addTransaction',{personId:pid,type:S.subTab==='borrow'?'owe':'lend',currency:selectedCur,amount:amt,note:note,date:date})
     .then(function(tx){
+      isSubmitting=false;
       S.transactions.push(tx);
       document.getElementById('f-person').value='';document.getElementById('f-amount').value='';document.getElementById('f-note').value='';
+      setLoading('btn-add-tx',false);
       var m=document.getElementById('add-msg');if(m)m.innerHTML='<div class="success-toast">✓ Transaction added!</div>';
       setTimeout(function(){var m2=document.getElementById('add-msg');if(m2)m2.innerHTML=''},2500);
-    }).catch(function(e){alert('Error: '+e.message)});
+    }).catch(function(e){isSubmitting=false;setLoading('btn-add-tx',false);alert('Error: '+e.message)});
 }
 
 // ═══════════════════════════════════════════
 // SETTLE (FIFO)
 // ═══════════════════════════════════════════
 function renderSettle(){
-  var h='<div class="card" style="background:var(--accentDim);border-color:rgba(51,102,255,.15);padding:10px 14px;font-size:12px;color:var(--accent);box-shadow:none">Enter amount — auto-allocated oldest dues first</div>';
+  var h='<div class="card" style="background:var(--accentDim);border-color:rgba(51,102,255,.15);padding:11px 14px;font-size:13px;color:var(--accent);box-shadow:none">Enter amount — auto-allocated oldest dues first</div>';
   h+='<div class="field"><label>Person</label><select id="settle-person" onchange="settlePerson=this.value;settleAmount=\'\';render()">';
   h+='<option value="">Select person...</option>';
   for(var i=0;i<S.people.length;i++) h+='<option value="'+S.people[i].id+'"'+(settlePerson===S.people[i].id?' selected':'')+'>'+S.people[i].name+'</option>';
@@ -259,27 +282,28 @@ function renderSettle(){
   for(var j=0;j<S.transactions.length;j++){var t=S.transactions[j];if(t.personId!==settlePerson)continue;var d=t.amount-(t.settled||0);if(d<=0)continue;dueTxs.push(t);if(t.currency==='SAR')tSAR+=d;else tINR+=d}
   dueTxs.sort(function(a,b){return new Date(a.date)-new Date(b.date)});
 
-  if(!dueTxs.length){h+='<div class="empty" style="padding:28px"><div style="font-size:24px;margin-bottom:6px">🎉</div><div style="font-size:13px;font-weight:700">All settled!</div></div>';return h}
+  if(!dueTxs.length){h+='<div class="empty" style="padding:28px"><div style="font-size:24px;margin-bottom:6px">🎉</div><div style="font-size:14px;font-weight:700">All settled!</div></div>';return h}
 
   // Total outstanding
-  h+='<div class="card" style="padding:14px"><div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:8px;letter-spacing:.5px">TOTAL OUTSTANDING</div>';
-  if(tSAR>0) h+='<div style="font-size:16px;font-weight:700;color:var(--sar)">'+fmt(tSAR,'SAR')+'</div>';
-  if(tINR>0) h+='<div style="font-size:16px;font-weight:700;color:var(--inr)'+(tSAR?';margin-top:4px':'')+'">'+fmt(tINR,'INR')+'</div>';
+  h+='<div class="card" style="padding:14px"><div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:8px;letter-spacing:.5px">TOTAL OUTSTANDING</div>';
+  if(tSAR>0) h+='<div style="font-size:18px;font-weight:700;color:var(--sar)">'+fmt(tSAR,'SAR')+'</div>';
+  if(tINR>0) h+='<div style="font-size:18px;font-weight:700;color:var(--inr)'+(tSAR?';margin-top:4px':'')+'">'+fmt(tINR,'INR')+'</div>';
   h+='</div>';
 
   if(tSAR>0&&tINR>0){var sc=settleCurrency==='SAR';
     h+='<div class="field"><label>Settle Currency</label><div style="display:flex;gap:8px">';
-    h+='<button onclick="settleCurrency=\'SAR\';settleAmount=\'\';render()" style="flex:1;padding:11px;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(sc?'var(--sar)':'var(--border)')+';background:'+(sc?'var(--sarDim)':'var(--bg)')+';color:'+(sc?'var(--sar)':'var(--text3)')+'">﷼ SAR</button>';
-    h+='<button onclick="settleCurrency=\'INR\';settleAmount=\'\';render()" style="flex:1;padding:11px;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(!sc?'var(--inr)':'var(--border)')+';background:'+(!sc?'var(--inrDim)':'var(--bg)')+';color:'+(!sc?'var(--inr)':'var(--text3)')+'">₹ INR</button>';
+    h+='<button onclick="settleCurrency=\'SAR\';settleAmount=\'\';render()" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(sc?'var(--sar)':'var(--border)')+';background:'+(sc?'var(--sarDim)':'var(--bg)')+';color:'+(sc?'var(--sar)':'var(--text3)')+'">﷼ SAR</button>';
+    h+='<button onclick="settleCurrency=\'INR\';settleAmount=\'\';render()" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(!sc?'var(--inr)':'var(--border)')+';background:'+(!sc?'var(--inrDim)':'var(--bg)')+';color:'+(!sc?'var(--inr)':'var(--text3)')+'">₹ INR</button>';
     h+='</div></div>';
   } else settleCurrency=tSAR>0?'SAR':'INR';
 
   var curDues=[],curTotal=0;
   for(var cd=0;cd<dueTxs.length;cd++) if(dueTxs[cd].currency===settleCurrency){var dd=dueTxs[cd].amount-(dueTxs[cd].settled||0);curDues.push(dueTxs[cd]);curTotal+=dd}
-  if(!curDues.length){h+='<div class="empty" style="padding:20px"><div style="font-size:12px;font-weight:600">No '+settleCurrency+' dues</div></div>';return h}
+  if(!curDues.length){h+='<div class="empty" style="padding:20px"><div style="font-size:13px;font-weight:600">No '+settleCurrency+' dues</div></div>';return h}
 
   h+='<div class="field"><label>Settlement Date</label><input type="date" id="settle-date" value="'+today()+'"></div>';
-  h+='<div class="field"><label>Amount ('+settleCurrency+')</label><input type="number" id="settle-amt" placeholder="0.00" value="'+(settleAmount||'')+'" oninput="settleAmount=this.value;renderPreview()" style="font-size:20px;font-weight:700;text-align:center"></div>';
+  h+='<div class="field"><label>Amount ('+settleCurrency+')</label><input type="number" id="settle-amt" placeholder="0.00" value="'+(settleAmount||'')+'" oninput="settleAmount=this.value;renderPreview()" style="font-size:22px;font-weight:700;text-align:center"></div>';
+  h+='<div class="field"><label>Notes (optional)</label><input type="text" id="settle-note" placeholder="e.g. Bank transfer, Cash, UPI..."></div>';
 
   // Quick buttons
   h+='<div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">';
@@ -294,7 +318,7 @@ function renderSettle(){
 
 function buildPreview(dues,amt,cur){
   var h='',rem=amt,allocs=[];
-  h+='<div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:8px;letter-spacing:.5px">'+dues.length+' DUES · OLDEST FIRST</div>';
+  h+='<div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:8px;letter-spacing:.5px">'+dues.length+' DUES · OLDEST FIRST</div>';
   for(var n=0;n<dues.length;n++){
     var tx=dues[n],due=tx.amount-(tx.settled||0),il=tx.type==='lend',ac=il?'var(--green)':'var(--red)';
     var alloc=0;if(rem>0){alloc=Math.min(rem,due);rem-=alloc}
@@ -303,26 +327,26 @@ function buildPreview(dues,amt,cur){
     var bg=full?'var(--greenDim)':(part?'var(--accentDim)':'var(--card)');
 
     h+='<div style="display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:'+bg+';border:1.5px solid '+bdr+';margin-bottom:6px;box-shadow:var(--shadow)">';
-    if(full) h+='<div style="width:22px;height:22px;border-radius:6px;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-size:11px;font-weight:700">✓</span></div>';
-    else if(part) h+='<div style="width:22px;height:22px;border-radius:6px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-size:9px;font-weight:800">½</span></div>';
-    else h+='<div style="width:22px;height:22px;border-radius:6px;border:2px solid var(--text3);flex-shrink:0"></div>';
+    if(full) h+='<div style="width:24px;height:24px;border-radius:7px;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-size:12px;font-weight:700">✓</span></div>';
+    else if(part) h+='<div style="width:24px;height:24px;border-radius:7px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:#fff;font-size:10px;font-weight:800">½</span></div>';
+    else h+='<div style="width:24px;height:24px;border-radius:7px;border:2px solid var(--text3);flex-shrink:0"></div>';
 
-    h+='<div style="flex:1"><div style="font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px"><span style="color:'+ac+';font-size:10px">'+(il?'↑':'↓')+'</span>'+(tx.note||(il?'Lent':'Borrowed'))+'</div>';
-    h+='<div style="font-size:10px;color:var(--text3)">'+fmtD(tx.date)+'</div></div>';
-    h+='<div style="text-align:right"><div style="font-size:13px;font-weight:700;color:'+(none?'var(--text3)':(full?'var(--green)':'var(--accent)'))+'">'+fmt(due,cur)+'</div>';
-    if(part) h+='<div style="font-size:9px;font-weight:600;color:var(--accent);margin-top:1px">pays '+fmt(alloc,cur)+'</div>';
-    else if(full) h+='<div style="font-size:9px;font-weight:600;color:var(--green);margin-top:1px">fully paid</div>';
+    h+='<div style="flex:1"><div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:4px"><span style="color:'+ac+';font-size:11px">'+(il?'↑':'↓')+'</span>'+(tx.note||(il?'Lent':'Borrowed'))+'</div>';
+    h+='<div style="font-size:11px;color:var(--text3)">'+fmtD(tx.date)+'</div></div>';
+    h+='<div style="text-align:right"><div style="font-size:14px;font-weight:700;color:'+(none?'var(--text3)':(full?'var(--green)':'var(--accent)'))+'">'+fmt(due,cur)+'</div>';
+    if(part) h+='<div style="font-size:10px;font-weight:600;color:var(--accent);margin-top:1px">pays '+fmt(alloc,cur)+'</div>';
+    else if(full) h+='<div style="font-size:10px;font-weight:600;color:var(--green);margin-top:1px">fully paid</div>';
     h+='</div></div>';
     if(alloc>0) allocs.push({id:tx.id,amount:alloc});
   }
   window._allocs=allocs;
-  if(rem>0&&amt>0) h+='<div style="padding:8px 12px;border-radius:10px;background:var(--sarDim);border:1px solid var(--sarBorder);color:var(--sar);font-size:11px;font-weight:600;margin-bottom:8px">⚠ Excess: '+fmt(rem,cur)+'</div>';
+  if(rem>0&&amt>0) h+='<div style="padding:8px 12px;border-radius:10px;background:var(--sarDim);border:1px solid var(--sarBorder);color:var(--sar);font-size:12px;font-weight:600;margin-bottom:8px">⚠ Excess: '+fmt(rem,cur)+'</div>';
   if(allocs.length>0&&amt>0){
     var st=0;for(var a=0;a<allocs.length;a++)st+=allocs[a].amount;
     h+='<div class="card" style="background:var(--accentDim);border-color:rgba(51,102,255,.15);margin-top:12px;margin-bottom:12px">';
-    h+='<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;color:var(--text2)">'+allocs.length+' transaction'+(allocs.length>1?'s':'')+'</span>';
-    h+='<span style="font-size:17px;font-weight:800;color:var(--accent)">'+fmt(st,cur)+'</span></div></div>';
-    h+='<button class="btn" style="background:var(--accent);color:#fff" onclick="submitSettle()">✓ Settle '+allocs.length+' Transaction'+(allocs.length>1?'s':'')+'</button>';
+    h+='<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--text2)">'+allocs.length+' transaction'+(allocs.length>1?'s':'')+'</span>';
+    h+='<span style="font-size:19px;font-weight:800;color:var(--accent)">'+fmt(st,cur)+'</span></div></div>';
+    h+='<button class="btn" id="btn-settle-fifo" style="background:var(--accent);color:#fff" onclick="submitSettle()"><span class="btn-text">✓ Settle '+allocs.length+' Transaction'+(allocs.length>1?'s':'')+'</span></button>';
   }
   return h;
 }
@@ -336,13 +360,18 @@ function renderPreview(){
   el.innerHTML=buildPreview(cd,a,settleCurrency);
 }
 function submitSettle(){
+  if(isSubmitting)return;
   var al=window._allocs;if(!al||!al.length)return;
   var de=document.getElementById('settle-date'),dt=de?de.value:today();
-  api('settleMultiple',{allocations:al,date:dt}).then(function(results){
-    for(var r=0;r<results.length;r++)for(var i=0;i<S.transactions.length;i++)if(S.transactions[i].id===results[r].id){S.transactions[i].settled=results[r].settled;S.transactions[i].settledDate=results[r].settledDate;break}
+  var noteEl=document.getElementById('settle-note'),sn=noteEl?noteEl.value:'';
+  isSubmitting=true;
+  setLoading('btn-settle-fifo',true);
+  api('settleMultiple',{allocations:al,date:dt,settleNote:sn}).then(function(results){
+    isSubmitting=false;
+    for(var r=0;r<results.length;r++)for(var i=0;i<S.transactions.length;i++)if(S.transactions[i].id===results[r].id){S.transactions[i].settled=results[r].settled;S.transactions[i].settledDate=results[r].settledDate;if(results[r].settleNote)S.transactions[i].settleNote=results[r].settleNote;break}
     settleAmount='';render();
     setTimeout(function(){var m=document.getElementById('settle-msg');if(m)m.innerHTML='<div class="success-toast">✓ '+results.length+' transaction'+(results.length>1?'s':'')+' settled!</div>';setTimeout(function(){var m2=document.getElementById('settle-msg');if(m2)m2.innerHTML=''},3000)},50);
-  }).catch(function(e){alert('Error: '+e.message)});
+  }).catch(function(e){isSubmitting=false;setLoading('btn-settle-fifo',false);alert('Error: '+e.message)});
 }
 
 // ═══════════════════════════════════════════
@@ -370,63 +399,161 @@ function renderTx(){
       if(st.type==='lend'){bk.l+=st.amount;if(sd2>0)bk.dl+=sd2}else{bk.b+=st.amount;if(sd2>0)bk.db+=sd2}}
     h+='<div class="card" style="margin-bottom:14px" id="summary-card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">';
     h+='<div class="avatar" style="background:var(--accentDim);color:var(--accent)">'+ini(sp?sp.name:'?')+'</div>';
-    h+='<div><div style="font-size:15px;font-weight:700">'+(sp?sp.name:'?')+'</div><div style="font-size:10px;color:var(--text3)">Balance Summary</div></div></div>';
+    h+='<div><div style="font-size:16px;font-weight:700">'+(sp?sp.name:'?')+'</div><div style="font-size:12px;color:var(--text3)">Balance Summary</div></div></div>';
     var sums=[{c:'SAR',sym:'﷼',col:'var(--sar)',d:sm.SAR},{c:'INR',sym:'₹',col:'var(--inr)',d:sm.INR}];
     for(var ssi=0;ssi<sums.length;ssi++){var sc=sums[ssi],sd=sc.d;if(!sd.l&&!sd.b)continue;var sn=sd.dl-sd.db,snc=sn>=0?'var(--green)':'var(--red)',snl=sn>0?'owes you':(sn<0?'you owe':'settled');
       if(ssi>0&&(sums[0].d.l+sums[0].d.b>0)) h+='<div style="height:1px;background:var(--border);margin:10px 0"></div>';
-      h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;font-weight:700;color:'+sc.col+'">'+sc.sym+' '+sc.c+'</span>';
-      h+='<div style="text-align:right"><div style="font-size:10px;color:var(--text3)">'+snl+'</div><div style="font-size:18px;font-weight:800;color:'+snc+'">'+(sn>=0?'+':'-')+fmt(sn,sc.c)+'</div></div></div>';
+      h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;font-weight:700;color:'+sc.col+'">'+sc.sym+' '+sc.c+'</span>';
+      h+='<div style="text-align:right"><div style="font-size:11px;color:var(--text3)">'+snl+'</div><div style="font-size:20px;font-weight:800;color:'+snc+'">'+(sn>=0?'+':'-')+fmt(sn,sc.c)+'</div></div></div>';
       h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
-      h+='<div style="padding:8px 10px;border-radius:10px;background:var(--greenDim);border:1px solid var(--greenBorder)"><div style="font-size:9px;font-weight:700;color:var(--green);margin-bottom:3px">↑ THEY OWE</div><div style="font-size:14px;font-weight:700;color:var(--green)">'+fmt(sd.dl,sc.c)+'</div></div>';
-      h+='<div style="padding:8px 10px;border-radius:10px;background:var(--redDim);border:1px solid var(--redBorder)"><div style="font-size:9px;font-weight:700;color:var(--red);margin-bottom:3px">↓ YOU OWE</div><div style="font-size:14px;font-weight:700;color:var(--red)">'+fmt(sd.db,sc.c)+'</div></div></div>';
+      h+='<div style="padding:9px 10px;border-radius:10px;background:var(--greenDim);border:1px solid var(--greenBorder)"><div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:3px">↑ THEY OWE</div><div style="font-size:15px;font-weight:700;color:var(--green)">'+fmt(sd.dl,sc.c)+'</div></div>';
+      h+='<div style="padding:9px 10px;border-radius:10px;background:var(--redDim);border:1px solid var(--redBorder)"><div style="font-size:10px;font-weight:700;color:var(--red);margin-bottom:3px">↓ YOU OWE</div><div style="font-size:15px;font-weight:700;color:var(--red)">'+fmt(sd.db,sc.c)+'</div></div></div>';
     }
-    h+='<div style="text-align:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:9px;color:var(--text3)">As of '+fmtD(today())+' · DebtBuddy</div></div>';
+    h+='<div style="text-align:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);font-size:10px;color:var(--text3)">As of '+fmtD(today())+' · DebtBuddy</div></div>';
     // Download buttons
     h+='<div style="display:flex;gap:6px;margin-bottom:14px">';
-    h+='<button onclick="downloadImage()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px;border-radius:11px;background:var(--accentDim);border:1px solid rgba(51,102,255,.15);color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">📸 Image</button>';
-    h+='<button onclick="downloadPrint()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px;border-radius:11px;background:var(--sarDim);border:1px solid var(--sarBorder);color:var(--sar);font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">🖨 PDF</button>';
+    h+='<button onclick="downloadImage()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px;border-radius:11px;background:var(--accentDim);border:1px solid rgba(51,102,255,.15);color:var(--accent);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">📸 Image</button>';
+    h+='<button onclick="downloadPrint()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px;border-radius:11px;background:var(--sarDim);border:1px solid var(--sarBorder);color:var(--sar);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">🖨 PDF</button>';
     h+='</div>';
   }
 
   // Table
   h+='<div class="tx-header"><div>Person</div><div>Date</div><div>Cur</div><div style="text-align:right">Amt</div><div style="text-align:right">Due</div></div>';
-  if(!txs.length) h+='<div class="empty"><div style="font-size:24px;margin-bottom:6px">📋</div><div style="font-size:12px;font-weight:600">No transactions found</div></div>';
+  if(!txs.length) h+='<div class="empty"><div style="font-size:24px;margin-bottom:6px">📋</div><div style="font-size:13px;font-weight:600">No transactions found</div></div>';
   else for(var ti=0;ti<txs.length;ti++){
     var tx=txs[ti],p=fp(tx.personId),due=tx.amount-(tx.settled||0),cl=due<=0,il=tx.type==='lend';
     var ac=il?'var(--green)':'var(--red)',dc=cl?'var(--green)':(il?'var(--green)':'var(--red)');
     var cc=tx.currency==='SAR'?'var(--sar)':'var(--inr)',cb=tx.currency==='SAR'?'var(--sarDim)':'var(--inrDim)';
-    h+='<div class="tx-row'+(cl?' closed':'')+'"'+(cl?'':' onclick="openSettle(\''+tx.id+'\')"')+'>';
-    h+='<div><div style="font-size:12px;font-weight:600;display:flex;align-items:center;gap:3px"><span style="color:'+ac+';font-size:10px">'+(il?'↑':'↓')+'</span>'+(p?p.name:'?')+'</div>';
-    if(tx.note) h+='<div style="font-size:9px;color:var(--text3);margin-top:1px">'+tx.note+'</div>';
-    if(tx.settled>0&&tx.settledDate) h+='<div style="font-size:9px;color:var(--green);margin-top:1px">Settled '+fmtNum(tx.settled)+' on '+fmtD(tx.settledDate)+'</div>';
-    h+='</div><div style="font-size:10px;color:var(--text3)">'+fmtD(tx.date)+'</div>';
+    h+='<div class="tx-row'+(cl?' closed':'')+'" onclick="openTxModal(\''+tx.id+'\')">';
+    h+='<div><div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:3px"><span style="color:'+ac+';font-size:11px">'+(il?'↑':'↓')+'</span>'+(p?p.name:'?')+'</div>';
+    if(tx.note) h+='<div style="font-size:10px;color:var(--text3);margin-top:1px">'+tx.note+'</div>';
+    if(tx.settled>0&&tx.settledDate) h+='<div style="font-size:10px;color:var(--green);margin-top:1px">Settled '+fmtNum(tx.settled)+' on '+fmtD(tx.settledDate)+'</div>';
+    if(tx.settleNote) h+='<div style="font-size:10px;color:var(--accent);margin-top:1px;font-style:italic">'+tx.settleNote+'</div>';
+    h+='</div><div style="font-size:11px;color:var(--text3)">'+fmtD(tx.date)+'</div>';
     h+='<div class="badge" style="color:'+cc+';background:'+cb+'">'+tx.currency+'</div>';
-    h+='<div style="font-size:12px;font-weight:700;text-align:right">'+fmt(tx.amount,tx.currency)+'</div>';
-    h+='<div style="font-size:12px;font-weight:700;text-align:right;color:'+dc+'">'+(cl?'✓':fmt(due,tx.currency))+'</div></div>';
+    h+='<div style="font-size:13px;font-weight:700;text-align:right">'+fmt(tx.amount,tx.currency)+'</div>';
+    h+='<div style="font-size:13px;font-weight:700;text-align:right;color:'+dc+'">'+(cl?'✓':fmt(due,tx.currency))+'</div></div>';
   }
-  h+='<div id="settle-modal"></div>';return h;
+  h+='<div id="tx-modal"></div>';return h;
 }
-function openSettle(id){
+
+// ═══════════════════════════════════════════
+// TRANSACTION MODAL (Settle / Edit / Delete)
+// ═══════════════════════════════════════════
+function openTxModal(id){
   settleTarget=null;for(var i=0;i<S.transactions.length;i++)if(S.transactions[i].id===id){settleTarget=S.transactions[i];break}
-  if(!settleTarget)return;var due=settleTarget.amount-(settleTarget.settled||0),p=fp(settleTarget.personId);
-  var m=document.getElementById('settle-modal');
-  var h='<div class="modal-bg" onclick="if(event.target===this)closeSettle()"><div class="modal"><div style="width:36px;height:4px;border-radius:2px;background:var(--border2);margin:8px auto 16px"></div>';
-  h+='<h3 style="font-size:17px;font-weight:700;margin-bottom:16px">Settle Transaction</h3>';
-  h+='<div class="card"><div style="font-size:11px;color:var(--text2)">'+(p?p.name:'?')+' · '+(settleTarget.type==='lend'?'Lent':'Borrowed')+' · '+settleTarget.currency+'</div>';
-  h+='<div style="font-size:17px;font-weight:700;margin-top:4px">'+fmt(settleTarget.amount,settleTarget.currency)+'</div>';
-  h+='<div style="font-size:12px;color:var(--red);margin-top:2px">Due: '+fmt(due,settleTarget.currency)+'</div></div>';
-  h+='<div class="field"><label>Amount</label><input type="number" id="s-amount" value="'+due.toFixed(2)+'" style="font-size:18px;font-weight:700;text-align:center"></div>';
-  h+='<div class="field"><label>Date</label><input type="date" id="s-date" value="'+today()+'"></div>';
-  h+='<button class="btn" style="background:var(--green);color:#fff" onclick="doSettle()">✓ Settle</button>';
+  if(!settleTarget)return;
+  modalMode='settle';
+  renderTxModal();
+}
+function renderTxModal(){
+  if(!settleTarget)return;
+  var tx=settleTarget,due=tx.amount-(tx.settled||0),p=fp(tx.personId),cl=due<=0;
+  var m=document.getElementById('tx-modal');
+  var h='<div class="modal-bg" onclick="if(event.target===this)closeTxModal()"><div class="modal"><div style="width:36px;height:4px;border-radius:2px;background:var(--border2);margin:8px auto 16px"></div>';
+  h+='<h3 style="font-size:18px;font-weight:700;margin-bottom:14px">Transaction Details</h3>';
+
+  // Info card
+  h+='<div class="card"><div style="font-size:13px;color:var(--text2)">'+(p?p.name:'?')+' · '+(tx.type==='lend'?'Lent':'Borrowed')+' · '+tx.currency+'</div>';
+  h+='<div style="font-size:19px;font-weight:700;margin-top:4px">'+fmt(tx.amount,tx.currency)+'</div>';
+  if(tx.note) h+='<div style="font-size:12px;color:var(--text3);margin-top:3px">'+tx.note+'</div>';
+  h+='<div style="font-size:12px;color:var(--text3);margin-top:3px">Date: '+fmtD(tx.date)+'</div>';
+  if(tx.settled>0) h+='<div style="font-size:13px;color:var(--green);margin-top:3px">Settled: '+fmtNum(tx.settled)+' on '+fmtD(tx.settledDate)+'</div>';
+  if(tx.settleNote) h+='<div style="font-size:12px;color:var(--accent);margin-top:2px;font-style:italic">'+tx.settleNote+'</div>';
+  if(!cl) h+='<div style="font-size:13px;color:var(--red);margin-top:3px">Due: '+fmt(due,tx.currency)+'</div>';
+  h+='</div>';
+
+  // Action tabs
+  h+='<div class="modal-actions">';
+  if(!cl) h+='<div class="modal-action '+(modalMode==='settle'?'active-settle':'')+'" onclick="modalMode=\'settle\';renderTxModal()">✓ Settle</div>';
+  h+='<div class="modal-action '+(modalMode==='edit'?'active-edit':'')+'" onclick="modalMode=\'edit\';renderTxModal()">✏️ Edit</div>';
+  h+='<div class="modal-action '+(modalMode==='delete'?'active-delete':'')+'" onclick="modalMode=\'delete\';renderTxModal()">🗑 Delete</div>';
+  h+='</div>';
+
+  if(modalMode==='settle'&&!cl){
+    h+='<div class="field"><label>Amount</label><input type="number" id="s-amount" value="'+due.toFixed(2)+'" style="font-size:20px;font-weight:700;text-align:center"></div>';
+    h+='<div class="field"><label>Date</label><input type="date" id="s-date" value="'+today()+'"></div>';
+    h+='<div class="field"><label>Notes (optional)</label><input type="text" id="s-note" placeholder="e.g. Bank transfer, Cash..."></div>';
+    h+='<button class="btn" id="btn-modal-settle" style="background:var(--green);color:#fff" onclick="doSettle()"><span class="btn-text">✓ Settle</span></button>';
+  } else if(modalMode==='edit'){
+    h+='<div class="field"><label>Person</label><select id="e-person">';
+    for(var i=0;i<S.people.length;i++) h+='<option value="'+S.people[i].id+'"'+(tx.personId===S.people[i].id?' selected':'')+'>'+S.people[i].name+'</option>';
+    h+='</select></div>';
+    h+='<div class="field"><label>Type</label><select id="e-type"><option value="owe"'+(tx.type==='owe'?' selected':'')+'>Borrow</option><option value="lend"'+(tx.type==='lend'?' selected':'')+'>Lend</option></select></div>';
+    var esSAR=tx.currency==='SAR';
+    h+='<div class="field"><label>Currency</label><div style="display:flex;gap:8px">';
+    h+='<button onclick="document.getElementById(\'e-cur\').value=\'SAR\';renderTxModal()" id="e-cur-sar" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(esSAR?'var(--sar)':'var(--border)')+';background:'+(esSAR?'var(--sarDim)':'var(--bg)')+';color:'+(esSAR?'var(--sar)':'var(--text3)')+'">﷼ SAR</button>';
+    h+='<button onclick="document.getElementById(\'e-cur\').value=\'INR\';renderTxModal()" id="e-cur-inr" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(!esSAR?'var(--inr)':'var(--border)')+';background:'+(!esSAR?'var(--inrDim)':'var(--bg)')+';color:'+(!esSAR?'var(--inr)':'var(--text3)')+'">₹ INR</button>';
+    h+='<input type="hidden" id="e-cur" value="'+tx.currency+'">';
+    h+='</div></div>';
+    h+='<div class="field"><label>Amount</label><input type="number" id="e-amount" value="'+tx.amount+'" style="font-size:20px;font-weight:700;text-align:center"></div>';
+    h+='<div class="field"><label>Date</label><input type="date" id="e-date" value="'+tx.date+'"></div>';
+    h+='<div class="field"><label>Note</label><input type="text" id="e-note" value="'+(tx.note||'').replace(/"/g,'&quot;')+'"></div>';
+    h+='<button class="btn" id="btn-modal-edit" style="background:var(--accent);color:#fff" onclick="doEdit()"><span class="btn-text">💾 Save Changes</span></button>';
+  } else if(modalMode==='delete'){
+    h+='<div class="card" style="background:var(--redDim);border-color:var(--redBorder);box-shadow:none"><div style="font-size:14px;font-weight:600;color:var(--red);margin-bottom:4px">⚠️ Delete this transaction?</div>';
+    h+='<div style="font-size:13px;color:var(--text2)">This will permanently remove this transaction. This action cannot be undone.</div></div>';
+    h+='<button class="btn" id="btn-modal-delete" style="background:var(--red);color:#fff" onclick="doDelete()"><span class="btn-text">🗑 Delete Transaction</span></button>';
+  }
+  // If settled and default mode was settle, switch to edit
+  if(modalMode==='settle'&&cl) modalMode='edit';
+
   h+='</div></div>';m.innerHTML=h;
 }
-function closeSettle(){var m=document.getElementById('settle-modal');if(m)m.innerHTML=''}
+function closeTxModal(){var m=document.getElementById('tx-modal');if(m)m.innerHTML='';modalMode='settle'}
+
 function doSettle(){
-  if(!settleTarget)return;var amt=parseFloat(document.getElementById('s-amount').value),date=document.getElementById('s-date').value;if(!amt||amt<=0)return;
-  api('settleTransaction',{id:settleTarget.id,amount:amt,date:date}).then(function(r){
-    for(var i=0;i<S.transactions.length;i++)if(S.transactions[i].id===settleTarget.id){S.transactions[i].settled=r.settled;S.transactions[i].settledDate=r.settledDate;break}
-    settleTarget=null;render();
-  }).catch(function(e){alert('Error: '+e.message)});
+  if(isSubmitting||!settleTarget)return;
+  var amt=parseFloat(document.getElementById('s-amount').value),date=document.getElementById('s-date').value;
+  var noteEl=document.getElementById('s-note'),sn=noteEl?noteEl.value:'';
+  if(!amt||amt<=0)return;
+  isSubmitting=true;
+  setLoading('btn-modal-settle',true);
+  api('settleTransaction',{id:settleTarget.id,amount:amt,date:date,settleNote:sn}).then(function(r){
+    isSubmitting=false;
+    for(var i=0;i<S.transactions.length;i++)if(S.transactions[i].id===settleTarget.id){S.transactions[i].settled=r.settled;S.transactions[i].settledDate=r.settledDate;if(r.settleNote)S.transactions[i].settleNote=r.settleNote;break}
+    settleTarget=null;closeTxModal();render();
+  }).catch(function(e){isSubmitting=false;setLoading('btn-modal-settle',false);alert('Error: '+e.message)});
+}
+
+function doEdit(){
+  if(isSubmitting||!settleTarget)return;
+  var pid=document.getElementById('e-person').value;
+  var type=document.getElementById('e-type').value;
+  var cur=document.getElementById('e-cur').value;
+  var amt=parseFloat(document.getElementById('e-amount').value);
+  var date=document.getElementById('e-date').value;
+  var note=document.getElementById('e-note').value;
+  if(!pid||!amt||amt<=0||!date){alert('Please fill all required fields');return}
+  isSubmitting=true;
+  setLoading('btn-modal-edit',true);
+  api('editTransaction',{id:settleTarget.id,personId:pid,type:type,currency:cur,amount:amt,note:note,date:date}).then(function(updated){
+    isSubmitting=false;
+    for(var i=0;i<S.transactions.length;i++){
+      if(S.transactions[i].id===updated.id){
+        S.transactions[i].personId=updated.personId;
+        S.transactions[i].type=updated.type;
+        S.transactions[i].currency=updated.currency;
+        S.transactions[i].amount=updated.amount;
+        S.transactions[i].note=updated.note;
+        S.transactions[i].date=updated.date;
+        break;
+      }
+    }
+    settleTarget=null;closeTxModal();render();
+  }).catch(function(e){isSubmitting=false;setLoading('btn-modal-edit',false);alert('Error: '+e.message)});
+}
+
+function doDelete(){
+  if(isSubmitting||!settleTarget)return;
+  if(!confirm('Are you sure you want to delete this transaction?'))return;
+  isSubmitting=true;
+  setLoading('btn-modal-delete',true);
+  api('deleteTransaction',{id:settleTarget.id}).then(function(r){
+    isSubmitting=false;
+    S.transactions=S.transactions.filter(function(t){return t.id!==settleTarget.id});
+    settleTarget=null;closeTxModal();render();
+  }).catch(function(e){isSubmitting=false;setLoading('btn-modal-delete',false);alert('Error: '+e.message)});
 }
 
 // ═══════════════════════════════════════════
@@ -462,13 +589,13 @@ function downloadPrint(){
 // ═══════════════════════════════════════════
 function renderPeople(){
   var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">';
-  h+='<div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px">'+S.people.length+' PEOPLE</div>';
-  h+='<button onclick="addPersonPrompt()" style="padding:8px 14px;border-radius:10px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:12px;font-weight:700;font-family:var(--font);box-shadow:0 2px 6px rgba(51,102,255,.2)">+ Add</button></div>';
-  if(!S.people.length) h+='<div class="empty"><div style="font-size:32px;margin-bottom:6px">👥</div><div style="font-size:13px;font-weight:600">No people added yet</div></div>';
+  h+='<div style="font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1px">'+S.people.length+' PEOPLE</div>';
+  h+='<button onclick="addPersonPrompt()" style="padding:9px 15px;border-radius:10px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:13px;font-weight:700;font-family:var(--font);box-shadow:0 2px 6px rgba(51,102,255,.2)">+ Add</button></div>';
+  if(!S.people.length) h+='<div class="empty"><div style="font-size:32px;margin-bottom:6px">👥</div><div style="font-size:14px;font-weight:600">No people added yet</div></div>';
   else for(var i=0;i<S.people.length;i++){var p=S.people[i],tc=0;for(var j=0;j<S.transactions.length;j++)if(S.transactions[j].personId===p.id)tc++;
     var sn=p.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     h+='<div class="person-row"><div class="avatar" style="background:var(--accentDim);color:var(--accent)">'+ini(p.name)+'</div>';
-    h+='<div style="flex:1"><div style="font-size:14px;font-weight:600">'+p.name+'</div><div style="font-size:10px;color:var(--text3)">'+tc+' txn'+(tc!==1?'s':'')+'</div></div>';
+    h+='<div style="flex:1"><div style="font-size:15px;font-weight:600">'+p.name+'</div><div style="font-size:12px;color:var(--text3)">'+tc+' txn'+(tc!==1?'s':'')+'</div></div>';
     h+='<div style="display:flex;gap:5px"><button class="small-btn" style="background:var(--accentDim);color:var(--accent)" onclick="editPersonPrompt(\''+p.id+'\',\''+sn+'\')">Edit</button>';
     h+='<button class="small-btn" style="background:var(--redDim);color:var(--red)" onclick="delPerson(\''+p.id+'\',\''+sn+'\')">Del</button></div></div>'}
   return h;
@@ -482,19 +609,19 @@ function delPerson(id,name){if(!confirm('Delete '+name+'?'))return;api('deletePe
 // ═══════════════════════════════════════════
 function renderSettings(){
   var ac=0,se=0;for(var i=0;i<S.transactions.length;i++){if(S.transactions[i].amount-(S.transactions[i].settled||0)>0)ac++;else se++}
-  var h='<div class="card"><div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:12px;letter-spacing:1px">DATA SUMMARY</div><div class="stats-grid">';
+  var h='<div class="card"><div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:12px;letter-spacing:1px">DATA SUMMARY</div><div class="stats-grid">';
   var st=[{l:'People',v:S.people.length,c:'var(--accent)'},{l:'Transactions',v:S.transactions.length,c:'var(--sar)'},{l:'Active',v:ac,c:'var(--red)'},{l:'Settled',v:se,c:'var(--green)'}];
-  for(var si=0;si<st.length;si++){var s=st[si];h+='<div style="padding:10px 12px;border-radius:11px;background:var(--surface);border:1px solid var(--border)"><div style="font-size:20px;font-weight:800;color:'+s.c+'">'+s.v+'</div><div style="font-size:10px;color:var(--text3);font-weight:600">'+s.l+'</div></div>'}
+  for(var si=0;si<st.length;si++){var s=st[si];h+='<div style="padding:11px 12px;border-radius:11px;background:var(--surface);border:1px solid var(--border)"><div style="font-size:22px;font-weight:800;color:'+s.c+'">'+s.v+'</div><div style="font-size:11px;color:var(--text3);font-weight:600">'+s.l+'</div></div>'}
   h+='</div></div>';
-  h+='<div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:10px;letter-spacing:1px">EXPORT DATA</div>';
-  h+='<button class="download-btn" onclick="downloadCSV()"><div style="width:38px;height:38px;border-radius:10px;background:var(--greenDim);display:flex;align-items:center;justify-content:center;font-size:16px">📥</div><div><div style="font-size:13px;font-weight:600">Download CSV</div><div style="font-size:10px;color:var(--text3)">Excel-compatible</div></div></button>';
-  h+='<button class="download-btn" onclick="downloadJSON()"><div style="width:38px;height:38px;border-radius:10px;background:var(--accentDim);display:flex;align-items:center;justify-content:center;font-size:16px">💾</div><div><div style="font-size:13px;font-weight:600">Download JSON</div><div style="font-size:10px;color:var(--text3)">Full backup</div></div></button>';
-  h+='<div style="font-size:10px;font-weight:700;color:var(--red);margin:18px 0 10px;letter-spacing:1px">DANGER ZONE</div>';
+  h+='<div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:10px;letter-spacing:1px">EXPORT DATA</div>';
+  h+='<button class="download-btn" onclick="downloadCSV()"><div style="width:40px;height:40px;border-radius:10px;background:var(--greenDim);display:flex;align-items:center;justify-content:center;font-size:17px">📥</div><div><div style="font-size:14px;font-weight:600">Download CSV</div><div style="font-size:12px;color:var(--text3)">Excel-compatible</div></div></button>';
+  h+='<button class="download-btn" onclick="downloadJSON()"><div style="width:40px;height:40px;border-radius:10px;background:var(--accentDim);display:flex;align-items:center;justify-content:center;font-size:17px">💾</div><div><div style="font-size:14px;font-weight:600">Download JSON</div><div style="font-size:12px;color:var(--text3)">Full backup</div></div></button>';
+  h+='<div style="font-size:11px;font-weight:700;color:var(--red);margin:18px 0 10px;letter-spacing:1px">DANGER ZONE</div>';
   h+='<button class="btn" style="background:var(--redDim);border:1px solid var(--redBorder);color:var(--red)" onclick="if(confirm(\'Delete ALL data?\')){api(\'clearAll\').then(function(){S.people=[];S.transactions=[];render()})}">Clear All Data</button>';
-  h+='<div style="text-align:center;margin-top:28px;color:var(--text3);font-size:10px">DebtBuddy v3.0</div>';
+  h+='<div style="text-align:center;margin-top:28px;color:var(--text3);font-size:11px">DebtBuddy v3.1</div>';
   return h;
 }
-function downloadCSV(){var l=['"Type","Person","Date","Currency","Amount","Note","Settled","Settled Date","Due"'];for(var i=0;i<S.transactions.length;i++){var t=S.transactions[i],p=fp(t.personId),d=t.amount-(t.settled||0);l.push('"'+(t.type==='lend'?'Lend':'Borrow')+'","'+(p?p.name:'?')+'","'+t.date+'","'+t.currency+'","'+t.amount+'","'+(t.note||'')+'","'+(t.settled||0)+'","'+(t.settledDate||'')+'","'+(d<=0?0:d)+'"')}var b=new Blob([l.join('\n')],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='debtbuddy-'+today()+'.csv';document.body.appendChild(a);a.click();document.body.removeChild(a)}
+function downloadCSV(){var l=['"Type","Person","Date","Currency","Amount","Note","Settled","Settled Date","Settle Note","Due"'];for(var i=0;i<S.transactions.length;i++){var t=S.transactions[i],p=fp(t.personId),d=t.amount-(t.settled||0);l.push('"'+(t.type==='lend'?'Lend':'Borrow')+'","'+(p?p.name:'?')+'","'+t.date+'","'+t.currency+'","'+t.amount+'","'+(t.note||'')+'","'+(t.settled||0)+'","'+(t.settledDate||'')+'","'+(t.settleNote||'')+'","'+(d<=0?0:d)+'"')}var b=new Blob([l.join('\n')],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='debtbuddy-'+today()+'.csv';document.body.appendChild(a);a.click();document.body.removeChild(a)}
 function downloadJSON(){var tx=[];for(var i=0;i<S.transactions.length;i++){var t=S.transactions[i],p=fp(t.personId),o={};for(var k in t)o[k]=t[k];o.personName=p?p.name:'?';tx.push(o)}var b=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),people:S.people,transactions:tx},null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='debtbuddy-'+today()+'.json';document.body.appendChild(a);a.click();document.body.removeChild(a)}
 
 // ═══════════════════════════════════════════
@@ -517,7 +644,7 @@ var initAttempts=0;
 function initApp(){
   initAttempts++;var lt=document.getElementById('loading-text');
   if(!API_URL){
-    document.getElementById('loading').innerHTML='<div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#3366FF,#6B8AFF);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(51,102,255,.3)">💰</div><div style="color:var(--red);font-size:13px;font-weight:600;margin-top:12px">API URL not configured</div><div style="color:var(--text2);font-size:11px;margin-top:8px;padding:0 24px;text-align:center">Open index.html and set your Apps Script URL in the <strong style="color:var(--text)">API_URL</strong> variable at the top of the script section.</div>';
+    document.getElementById('loading').innerHTML='<div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#3366FF,#6B8AFF);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(51,102,255,.3)">💰</div><div style="color:var(--red);font-size:14px;font-weight:600;margin-top:12px">API URL not configured</div><div style="color:var(--text2);font-size:13px;margin-top:8px;padding:0 24px;text-align:center">Open index.html and set your Apps Script URL in the <strong style="color:var(--text)">API_URL</strong> variable at the top of the script section.</div>';
     return;
   }
   if(lt)lt.textContent='Loading data... ('+initAttempts+')';
@@ -526,7 +653,7 @@ function initApp(){
     document.getElementById('loading').style.display='none';document.getElementById('app').style.display='block';render();
   }).catch(function(err){
     if(initAttempts<3){setTimeout(initApp,1000);return}
-    document.getElementById('loading').innerHTML='<div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#E5484D,#c0354a);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(229,72,77,.3)">⚠️</div><div style="color:var(--red);font-size:13px;font-weight:600;margin-top:12px">Connection Error</div><div style="color:var(--text2);font-size:11px;margin-top:8px;padding:0 24px;text-align:center">'+(err.message||String(err))+'</div><button onclick="initAttempts=0;initApp()" style="margin-top:16px;padding:10px 22px;border-radius:11px;background:var(--accent);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);box-shadow:0 2px 8px rgba(51,102,255,.25)">Retry</button>';
+    document.getElementById('loading').innerHTML='<div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#E5484D,#c0354a);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(229,72,77,.3)">⚠️</div><div style="color:var(--red);font-size:14px;font-weight:600;margin-top:12px">Connection Error</div><div style="color:var(--text2);font-size:13px;margin-top:8px;padding:0 24px;text-align:center">'+(err.message||String(err))+'</div><button onclick="initAttempts=0;initApp()" style="margin-top:16px;padding:11px 22px;border-radius:11px;background:var(--accent);color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);box-shadow:0 2px 8px rgba(51,102,255,.25)">Retry</button>';
   });
 }
 setTimeout(initApp,100);
