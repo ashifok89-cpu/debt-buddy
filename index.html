@@ -156,7 +156,7 @@ function apiGet(){
 function fmt(n,c){return (c==='SAR'?'﷼':'₹')+' '+Math.abs(n).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function fmtNum(n){return Math.abs(n).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function fmtD(d){if(!d||d==='')return'—';try{return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}catch(e){return String(d)}}
-function toISO(d){if(!d||d==='')return today();d=String(d).trim();if(/^\d{4}-\d{2}-\d{2}$/.test(d))return d;try{var dt=new Date(d);if(isNaN(dt.getTime()))return today();var y=dt.getUTCFullYear(),m=('0'+(dt.getUTCMonth()+1)).slice(-2),dd=('0'+dt.getUTCDate()).slice(-2);return y+'-'+m+'-'+dd}catch(e){return today()}}
+function toISO(d){if(!d||d==='')return today();d=String(d).trim();var m=d.match(/(\d{4})-(\d{2})-(\d{2})/);if(m)return m[1]+'-'+m[2]+'-'+m[3];try{var dt=new Date(d);if(isNaN(dt.getTime()))return today();var y=dt.getFullYear(),mo=('0'+(dt.getMonth()+1)).slice(-2),dd=('0'+dt.getDate()).slice(-2);return y+'-'+mo+'-'+dd}catch(e){return today()}}
 function today(){return new Date().toISOString().split('T')[0]}
 function ini(n){var p=String(n).split(' '),r='';for(var i=0;i<p.length&&i<2;i++)if(p[i].length>0)r+=p[i][0];return r.toUpperCase()}
 function rgba(hex,a){return'rgba('+parseInt(hex.slice(1,3),16)+','+parseInt(hex.slice(3,5),16)+','+parseInt(hex.slice(5,7),16)+','+a+')'}
