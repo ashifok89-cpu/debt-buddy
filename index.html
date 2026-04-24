@@ -78,8 +78,8 @@ input:focus,select:focus{border-color:var(--accent)!important;outline:none;box-s
   border-top:1px solid var(--border);padding:6px 0 22px;z-index:100;
 }
 .tab-btn{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;padding:6px 6px 0;min-width:50px;font-family:var(--font)}
-.tab-icon{font-size:20px;line-height:1}
-.tab-label{font-size:10px;font-weight:700;letter-spacing:.3px}
+.tab-icon{font-size:22px;line-height:1}
+.tab-label{font-size:11px;font-weight:700;letter-spacing:.3px}
 .tab-dot{width:4px;height:4px;border-radius:2px;background:var(--accent);margin-top:-1px}
 
 /* ── Transaction row ── */
@@ -90,7 +90,7 @@ input:focus,select:focus{border-color:var(--accent)!important;outline:none;box-s
 }
 .tx-row:active{background:var(--surface)}
 .tx-row.closed{opacity:.45}
-.tx-header{display:grid;grid-template-columns:1fr 66px 44px 62px 66px;gap:3px;padding:6px 12px;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:6px}
+.tx-header{display:grid;grid-template-columns:1fr 66px 44px 62px 66px;gap:3px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--border);margin-bottom:6px}
 .person-row{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--border);margin-bottom:8px;transition:all .15s;box-shadow:var(--shadow)}
 .person-row:active{background:var(--surface)}
 .avatar{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
@@ -134,6 +134,7 @@ var selectedCur='SAR',settleTarget=null,txFilter='all',txPerson='all';
 var settlePerson='',settleAmount='',settleCurrency='SAR';
 var isSubmitting=false;
 var modalMode='settle'; // settle | edit | delete
+var editCur='SAR';
 
 // ═══════════════════════════════════════════
 // API
@@ -209,12 +210,12 @@ function renderBalance(){
   if(!S.transactions.length){h+='<div class="empty"><div style="font-size:28px;margin-bottom:6px">📊</div><div style="font-size:14px;font-weight:600">No transactions yet</div></div>'}
   else{var r=S.transactions.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date)}).slice(0,5);
     for(var i=0;i<r.length;i++){var tx=r[i],p=fp(tx.personId),il=tx.type==='lend',ac=il?'var(--green)':'var(--red)';
-      h+='<div style="display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:var(--card);margin-bottom:6px;border:1px solid var(--border);box-shadow:var(--shadow)">';
+      h+='<div style="display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:var(--card);margin-bottom:6px;border:1px solid var(--border);box-shadow:var(--shadow);cursor:pointer" onclick="openTxModal(\''+tx.id+'\')">';
       h+='<div style="width:34px;height:34px;border-radius:9px;background:'+(il?'var(--greenDim)':'var(--redDim)')+';display:flex;align-items:center;justify-content:center;font-size:14px;color:'+ac+';font-weight:700">'+(il?'↑':'↓')+'</div>';
       h+='<div style="flex:1"><div style="font-size:14px;font-weight:600">'+(p?p.name:'?')+'</div><div style="font-size:12px;color:var(--text3)">'+(tx.note||(il?'Lent':'Borrowed'))+' · '+fmtD(tx.date)+'</div></div>';
       h+='<div style="font-size:15px;font-weight:700;color:'+ac+'">'+(il?'+':'-')+fmt(tx.amount,tx.currency)+'</div></div>';
     }}
-  h+='</div>';return h;
+  h+='</div><div id="home-tx-modal"></div>';return h;
 }
 
 // ═══════════════════════════════════════════
@@ -425,14 +426,14 @@ function renderTx(){
     var ac=il?'var(--green)':'var(--red)',dc=cl?'var(--green)':(il?'var(--green)':'var(--red)');
     var cc=tx.currency==='SAR'?'var(--sar)':'var(--inr)',cb=tx.currency==='SAR'?'var(--sarDim)':'var(--inrDim)';
     h+='<div class="tx-row'+(cl?' closed':'')+'" onclick="openTxModal(\''+tx.id+'\')">';
-    h+='<div><div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:3px"><span style="color:'+ac+';font-size:11px">'+(il?'↑':'↓')+'</span>'+(p?p.name:'?')+'</div>';
-    if(tx.note) h+='<div style="font-size:10px;color:var(--text3);margin-top:1px">'+tx.note+'</div>';
-    if(tx.settled>0&&tx.settledDate) h+='<div style="font-size:10px;color:var(--green);margin-top:1px">Settled '+fmtNum(tx.settled)+' on '+fmtD(tx.settledDate)+'</div>';
-    if(tx.settleNote) h+='<div style="font-size:10px;color:var(--accent);margin-top:1px;font-style:italic">'+tx.settleNote+'</div>';
-    h+='</div><div style="font-size:11px;color:var(--text3)">'+fmtD(tx.date)+'</div>';
+    h+='<div><div style="font-size:14px;font-weight:600;display:flex;align-items:center;gap:3px"><span style="color:'+ac+';font-size:12px">'+(il?'↑':'↓')+'</span>'+(p?p.name:'?')+'</div>';
+    if(tx.note) h+='<div style="font-size:11px;color:var(--text3);margin-top:2px">'+tx.note+'</div>';
+    if(tx.settled>0&&tx.settledDate) h+='<div style="font-size:11px;color:var(--green);margin-top:2px">Settled '+fmtNum(tx.settled)+' on '+fmtD(tx.settledDate)+'</div>';
+    if(tx.settleNote) h+='<div style="font-size:11px;color:var(--accent);margin-top:1px;font-style:italic">'+tx.settleNote+'</div>';
+    h+='</div><div style="font-size:12px;color:var(--text3)">'+fmtD(tx.date)+'</div>';
     h+='<div class="badge" style="color:'+cc+';background:'+cb+'">'+tx.currency+'</div>';
-    h+='<div style="font-size:13px;font-weight:700;text-align:right">'+fmt(tx.amount,tx.currency)+'</div>';
-    h+='<div style="font-size:13px;font-weight:700;text-align:right;color:'+dc+'">'+(cl?'✓':fmt(due,tx.currency))+'</div></div>';
+    h+='<div style="font-size:14px;font-weight:700;text-align:right">'+fmt(tx.amount,tx.currency)+'</div>';
+    h+='<div style="font-size:14px;font-weight:700;text-align:right;color:'+dc+'">'+(cl?'✓':fmt(due,tx.currency))+'</div></div>';
   }
   h+='<div id="tx-modal"></div>';return h;
 }
@@ -443,13 +444,18 @@ function renderTx(){
 function openTxModal(id){
   settleTarget=null;for(var i=0;i<S.transactions.length;i++)if(S.transactions[i].id===id){settleTarget=S.transactions[i];break}
   if(!settleTarget)return;
-  modalMode='settle';
+  var due=settleTarget.amount-(settleTarget.settled||0);
+  modalMode=(due<=0)?'edit':'settle';
+  editCur=settleTarget.currency;
   renderTxModal();
 }
 function renderTxModal(){
   if(!settleTarget)return;
   var tx=settleTarget,due=tx.amount-(tx.settled||0),p=fp(tx.personId),cl=due<=0;
-  var m=document.getElementById('tx-modal');
+  // If mode is settle but fully settled, force edit
+  if(modalMode==='settle'&&cl) modalMode='edit';
+  var m=document.getElementById('tx-modal');if(!m){m=document.getElementById('home-tx-modal')}
+  if(!m)return;
   var h='<div class="modal-bg" onclick="if(event.target===this)closeTxModal()"><div class="modal"><div style="width:36px;height:4px;border-radius:2px;background:var(--border2);margin:8px auto 16px"></div>';
   h+='<h3 style="font-size:18px;font-weight:700;margin-bottom:14px">Transaction Details</h3>';
 
@@ -480,11 +486,10 @@ function renderTxModal(){
     for(var i=0;i<S.people.length;i++) h+='<option value="'+S.people[i].id+'"'+(tx.personId===S.people[i].id?' selected':'')+'>'+S.people[i].name+'</option>';
     h+='</select></div>';
     h+='<div class="field"><label>Type</label><select id="e-type"><option value="owe"'+(tx.type==='owe'?' selected':'')+'>Borrow</option><option value="lend"'+(tx.type==='lend'?' selected':'')+'>Lend</option></select></div>';
-    var esSAR=tx.currency==='SAR';
+    var esSAR=editCur==='SAR';
     h+='<div class="field"><label>Currency</label><div style="display:flex;gap:8px">';
-    h+='<button onclick="document.getElementById(\'e-cur\').value=\'SAR\';renderTxModal()" id="e-cur-sar" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(esSAR?'var(--sar)':'var(--border)')+';background:'+(esSAR?'var(--sarDim)':'var(--bg)')+';color:'+(esSAR?'var(--sar)':'var(--text3)')+'">﷼ SAR</button>';
-    h+='<button onclick="document.getElementById(\'e-cur\').value=\'INR\';renderTxModal()" id="e-cur-inr" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(!esSAR?'var(--inr)':'var(--border)')+';background:'+(!esSAR?'var(--inrDim)':'var(--bg)')+';color:'+(!esSAR?'var(--inr)':'var(--text3)')+'">₹ INR</button>';
-    h+='<input type="hidden" id="e-cur" value="'+tx.currency+'">';
+    h+='<button onclick="editCur=\'SAR\';renderTxModal()" id="e-cur-sar" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(esSAR?'var(--sar)':'var(--border)')+';background:'+(esSAR?'var(--sarDim)':'var(--bg)')+';color:'+(esSAR?'var(--sar)':'var(--text3)')+'">﷼ SAR</button>';
+    h+='<button onclick="editCur=\'INR\';renderTxModal()" id="e-cur-inr" style="flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);border:1.5px solid '+(!esSAR?'var(--inr)':'var(--border)')+';background:'+(!esSAR?'var(--inrDim)':'var(--bg)')+';color:'+(!esSAR?'var(--inr)':'var(--text3)')+'">₹ INR</button>';
     h+='</div></div>';
     h+='<div class="field"><label>Amount</label><input type="number" id="e-amount" value="'+tx.amount+'" style="font-size:20px;font-weight:700;text-align:center"></div>';
     h+='<div class="field"><label>Date</label><input type="date" id="e-date" value="'+tx.date+'"></div>';
@@ -495,12 +500,9 @@ function renderTxModal(){
     h+='<div style="font-size:13px;color:var(--text2)">This will permanently remove this transaction. This action cannot be undone.</div></div>';
     h+='<button class="btn" id="btn-modal-delete" style="background:var(--red);color:#fff" onclick="doDelete()"><span class="btn-text">🗑 Delete Transaction</span></button>';
   }
-  // If settled and default mode was settle, switch to edit
-  if(modalMode==='settle'&&cl) modalMode='edit';
-
   h+='</div></div>';m.innerHTML=h;
 }
-function closeTxModal(){var m=document.getElementById('tx-modal');if(m)m.innerHTML='';modalMode='settle'}
+function closeTxModal(){var m=document.getElementById('tx-modal');if(m)m.innerHTML='';var m2=document.getElementById('home-tx-modal');if(m2)m2.innerHTML='';modalMode='settle'}
 
 function doSettle(){
   if(isSubmitting||!settleTarget)return;
@@ -520,7 +522,7 @@ function doEdit(){
   if(isSubmitting||!settleTarget)return;
   var pid=document.getElementById('e-person').value;
   var type=document.getElementById('e-type').value;
-  var cur=document.getElementById('e-cur').value;
+  var cur=editCur;
   var amt=parseFloat(document.getElementById('e-amount').value);
   var date=document.getElementById('e-date').value;
   var note=document.getElementById('e-note').value;
@@ -616,8 +618,6 @@ function renderSettings(){
   h+='<div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:10px;letter-spacing:1px">EXPORT DATA</div>';
   h+='<button class="download-btn" onclick="downloadCSV()"><div style="width:40px;height:40px;border-radius:10px;background:var(--greenDim);display:flex;align-items:center;justify-content:center;font-size:17px">📥</div><div><div style="font-size:14px;font-weight:600">Download CSV</div><div style="font-size:12px;color:var(--text3)">Excel-compatible</div></div></button>';
   h+='<button class="download-btn" onclick="downloadJSON()"><div style="width:40px;height:40px;border-radius:10px;background:var(--accentDim);display:flex;align-items:center;justify-content:center;font-size:17px">💾</div><div><div style="font-size:14px;font-weight:600">Download JSON</div><div style="font-size:12px;color:var(--text3)">Full backup</div></div></button>';
-  h+='<div style="font-size:11px;font-weight:700;color:var(--red);margin:18px 0 10px;letter-spacing:1px">DANGER ZONE</div>';
-  h+='<button class="btn" style="background:var(--redDim);border:1px solid var(--redBorder);color:var(--red)" onclick="if(confirm(\'Delete ALL data?\')){api(\'clearAll\').then(function(){S.people=[];S.transactions=[];render()})}">Clear All Data</button>';
   h+='<div style="text-align:center;margin-top:28px;color:var(--text3);font-size:11px">DebtBuddy v3.1</div>';
   return h;
 }
